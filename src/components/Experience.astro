@@ -1,0 +1,290 @@
+---
+interface Job {
+	id: string;
+	company: string;
+	role: string;
+	date: string;
+	bullets: string[];
+}
+
+const jobs: Job[] = [
+	{
+		id: "job-sodatech",
+		company: "Sodatech",
+		role: "Software Engineer and Product Manager",
+		date: "Mar 2025 — Present",
+		bullets: [
+			"Architected a scalable, modular platform infrastructure, enabling the business to transition from an API-only provider to a full-service platform.",
+			"Streamlined system onboarding by authoring comprehensive technical documentation, effectively bridging the gap between backend architecture and client-facing integrations.",
+			"Implemented secure, multi-tenant authentication workflows using Keycloakify, delivering unified identity management across distributed deployments.",
+		],
+	},
+	{
+		id: "job-inetra",
+		company: "Inetra",
+		role: "Lead Frontend Engineer",
+		date: "Feb 2022 — Feb 2025",
+		bullets: [
+			"Engineered the core system's data flow and architecture from the ground up to support a custom real estate CRM, replacing legacy workflows.",
+			"Designed complex data models and maintained Python/Django API endpoints to ensure secure and efficient data exchange.",
+			"Architected and implemented automated GitHub CI/CD pipelines to fully automate testing, build processes, and deployment workflows, ensuring error-free releases.",
+			"Directed technical hiring and mentored 2 junior developers, enforcing strict code review standards to maintain architectural integrity and accelerate team onboarding.",
+		],
+	},
+	{
+		id: "job-deskalerts",
+		company: "DeskAlerts",
+		role: "Frontend Engineer",
+		date: "Sep 2021 — Feb 2022",
+		bullets: [
+			"Refactored 20\% of a legacy C\# and React codebase by enforcing DRY principles, significantly reducing technical debt and improving system maintainability.",
+			"Optimized application architecture and implemented strategic code splitting, resulting in a 25\% improvement in core system load speeds.",
+			"Engineered core administrative systems, aligning functional implementations strictly with business and operational requirements.",
+		],
+	},
+	{
+		id: "job-limon",
+		company: "Limon",
+		role: "Full Stack Engineer",
+		date: "Sep 2020 — Sep 2021",
+		bullets: [
+			"Engineered high-performance analytical web applications for the banking sector, optimizing both backend data processing and frontend user experience.",
+			"Refactored system architecture for scalability and implemented comprehensive testing protocols using Jest and JMeter, collectively reducing post-release bugs by 10\% and significantly improving system stability.",
+		],
+	},
+];
+---
+
+<section id="experience" class="content-section">
+	<div class="grid-container">
+		<div class="section-header">
+			<span>[02] Experience</span>
+		</div>
+
+		<div class="experience-layout">
+			<div
+				class="company-list"
+				role="tablist"
+				aria-label="Companies"
+				aria-orientation="vertical"
+			>
+				{
+					jobs.map((job, i) => (
+						<button
+							class={`company-tab ${i === 0 ? "active" : ""}`}
+							role="tab"
+							id={`tab-${job.id}`}
+							aria-selected={i === 0 ? "true" : "false"}
+							aria-controls={job.id}
+							tabindex={i === 0 ? 0 : -1}
+							data-target={job.id}
+						>
+							{job.company}
+						</button>
+					))
+				}
+			</div>
+
+			<div class="experience-details">
+				{
+					jobs.map((job, i) => (
+						<div
+							class={`exp-content ${i === 0 ? "active" : ""}`}
+							id={job.id}
+							role="tabpanel"
+							aria-labelledby={`tab-${job.id}`}
+							tabindex={0}
+						>
+							<h3 class="exp-role">
+								{job.role} <span>@ {job.company}</span>
+							</h3>
+							<div class="exp-date">{job.date}</div>
+							<ul class="exp-bullets">
+								{job.bullets.map((bullet) => (
+									<li>{bullet}</li>
+								))}
+							</ul>
+						</div>
+					))
+				}
+			</div>
+		</div>
+	</div>
+</section>
+
+<style>
+	.experience-layout {
+		display: grid;
+		grid-template-columns: 1fr 3fr;
+		gap: 4rem;
+	}
+
+	.company-list {
+		display: flex;
+		flex-direction: column;
+		border-left: 1px solid var(--border-hard);
+	}
+
+	.company-tab {
+		background: transparent;
+		border: none;
+		text-align: left;
+		padding: 1rem 1.5rem;
+		color: var(--text-muted);
+		font-family: var(--font-mono);
+		font-size: 0.9rem;
+		text-transform: uppercase;
+		cursor: pointer;
+		border-left: 2px solid transparent;
+		margin-left: -1px;
+		transition: all var(--transition-fast);
+	}
+
+	.company-tab:hover,
+	.company-tab.active {
+		color: var(--accent-cyan);
+		background: var(--bg-surface);
+	}
+
+	.company-tab.active {
+		border-left-color: var(--accent-cyan);
+	}
+
+	.exp-content {
+		display: none;
+	}
+
+	.exp-content.active {
+		display: block;
+		animation: smoothFadeUp var(--transition-fast) forwards;
+	}
+
+	.exp-role {
+		font-size: 1.5rem;
+		font-weight: 700;
+		margin-bottom: 0.5rem;
+		color: var(--text-main);
+	}
+
+	.exp-role span {
+		color: var(--accent-cyan);
+	}
+
+	.exp-date {
+		font-family: var(--font-mono);
+		font-size: 0.85rem;
+		color: var(--text-muted);
+		margin-bottom: 2rem;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+	}
+
+	.exp-bullets {
+		list-style: none;
+		display: flex;
+		flex-direction: column;
+		gap: 1.2rem;
+	}
+
+	.exp-bullets li {
+		position: relative;
+		padding-left: 1.5rem;
+		color: var(--text-muted);
+		line-height: 1.6;
+	}
+
+	.exp-bullets li::before {
+		content: ">";
+		position: absolute;
+		left: 0;
+		color: var(--accent-cyan);
+		font-family: var(--font-mono);
+		font-weight: bold;
+	}
+
+	@media (max-width: 768px) {
+		.experience-layout {
+			grid-template-columns: 1fr;
+			gap: 2rem;
+		}
+
+		.company-list {
+			flex-direction: row;
+			overflow-x: auto;
+			border-left: none;
+			border-bottom: 1px solid var(--border-hard);
+		}
+
+		.company-tab {
+			border-left: none;
+			border-bottom: 2px solid transparent;
+			margin-left: 0;
+			margin-bottom: -1px;
+			white-space: nowrap;
+		}
+
+		.company-tab.active {
+			border-bottom-color: var(--accent-cyan);
+		}
+	}
+</style>
+
+<script>
+	function setupTabs() {
+		const root = document.getElementById("experience");
+		if (!root) return;
+
+		const tabs = Array.from(
+			root.querySelectorAll<HTMLButtonElement>(".company-tab"),
+		);
+		const panels = Array.from(
+			root.querySelectorAll<HTMLElement>(".exp-content"),
+		);
+
+		function activate(tab: HTMLButtonElement) {
+			tabs.forEach((t) => {
+				const isActive = t === tab;
+				t.classList.toggle("active", isActive);
+				t.setAttribute("aria-selected", String(isActive));
+				t.tabIndex = isActive ? 0 : -1;
+			});
+
+			panels.forEach((panel) => {
+				panel.classList.toggle(
+					"active",
+					panel.id === tab.dataset.target,
+				);
+			});
+		}
+
+		tabs.forEach((tab, index) => {
+			tab.addEventListener("click", () => activate(tab));
+
+			tab.addEventListener("keydown", (event) => {
+				let newIndex: number | null = null;
+				if (event.key === "ArrowRight" || event.key === "ArrowDown") {
+					newIndex = (index + 1) % tabs.length;
+				} else if (
+					event.key === "ArrowLeft" ||
+					event.key === "ArrowUp"
+				) {
+					newIndex = (index - 1 + tabs.length) % tabs.length;
+				} else if (event.key === "Home") {
+					newIndex = 0;
+				} else if (event.key === "End") {
+					newIndex = tabs.length - 1;
+				}
+
+				if (newIndex !== null) {
+					event.preventDefault();
+					const nextTab = tabs[newIndex];
+					nextTab.focus();
+					activate(nextTab);
+				}
+			});
+		});
+	}
+
+	setupTabs();
+	document.addEventListener("astro:after-swap", setupTabs);
+</script>

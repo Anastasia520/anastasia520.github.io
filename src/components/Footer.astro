@@ -1,0 +1,27 @@
+---
+const year = new Date().getFullYear();
+---
+
+<footer class="footer grid-container">
+	<div class="footer-meta">
+		<span>&copy; {year} ANASTASIIA PETRUNINA</span>
+	</div>
+</footer>
+
+<style>
+	.footer {
+		margin-top: auto;
+		border-top: 1px solid var(--border-hard);
+		padding: 3rem 0;
+		text-align: center;
+		font-family: var(--font-mono);
+	}
+
+	.footer-meta {
+		font-size: 0.75rem;
+		color: var(--text-muted);
+		display: flex;
+		justify-content: center;
+		gap: 2rem;
+	}
+</style>
